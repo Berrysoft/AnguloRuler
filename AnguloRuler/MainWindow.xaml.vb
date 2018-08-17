@@ -118,6 +118,8 @@ Class MainWindow
         ContentGrid.DataContext = Me
 
         Length = 100
+
+        SetBinding(ThetaProperty, New Binding("Angle") With {.ElementName = "Angulo"})
     End Sub
 
     Private Sub MainWindow_MouseDown(sender As Object, e As MouseButtonEventArgs) Handles Me.MouseDown
@@ -134,13 +136,7 @@ Class MainWindow
     Private Sub MainWindow_MouseMove(sender As Object, e As MouseEventArgs) Handles Me.MouseMove
         Dim mouse As Point = e.GetPosition(Me)
         If Not moving OrElse Not mouseDowned Then
-            If IsNearby(Line2.EndPoint, mouse) Then
-                state = MouseMoveState.MoveEnd
-            ElseIf IsNearby(Line1.EndPoint, mouse) Then
-                state = MouseMoveState.MoveStart
-            ElseIf IsNearby(Line1.StartPoint, mouse) Then
-                state = MouseMoveState.MoveO
-            ElseIf IsNearby(LineUnit.StartPoint, mouse) Then
+            If IsNearby(LineUnit.StartPoint, mouse) Then
                 state = MouseMoveState.MoveUnitStart
             ElseIf IsNearby(LineUnit.EndPoint, mouse) Then
                 state = MouseMoveState.MoveUnitEnd
@@ -158,15 +154,6 @@ Class MainWindow
         End If
         If mouseDowned Then
             Select Case state
-                Case MouseMoveState.MoveEnd
-                    Line2.EndPoint = mouse
-                Case MouseMoveState.MoveStart
-                    Line1.EndPoint = mouse
-                Case MouseMoveState.MoveO
-                    Dim delta = mouse - Line1.StartPoint
-                    Line1.StartPoint = mouse
-                    Line1.EndPoint += delta
-                    Line2.EndPoint += delta
                 Case MouseMoveState.MoveUnitStart
                     LineUnit.StartPoint = mouse
                 Case MouseMoveState.MoveUnitEnd
@@ -177,9 +164,6 @@ Class MainWindow
                     LineUnit.EndPoint += delta
                     oldmouse = mouse
             End Select
-            Dim v1 = Line1.EndPoint - Line1.StartPoint
-            Dim v2 = Line2.EndPoint - Line2.StartPoint
-            Theta = Math.Abs(Vector.AngleBetween(v2, v1)) / 180 * Math.PI
             Dim vu = LineUnit.EndPoint - LineUnit.StartPoint
             Length = vu.Length
         End If
@@ -187,18 +171,15 @@ Class MainWindow
 
     Private Sub ShowCircle()
         If state = MouseMoveState.MoveStart OrElse state = MouseMoveState.MoveEnd OrElse state = MouseMoveState.MoveO Then
-            PathCircle.Visibility = Visibility.Visible
         ElseIf state = MouseMoveState.MoveUnit Then
             PathCircleUnit.Fill = Brushes.Red
             PathCircleUnit.Visibility = Visibility.Visible
         ElseIf state = MouseMoveState.MoveUnitStart OrElse state = MouseMoveState.MoveUnitEnd Then
-            PathCircleUnit.Fill = PathCircle.Fill
             PathCircleUnit.Visibility = Visibility.Visible
         End If
     End Sub
 
     Private Sub HideCircle()
-        PathCircle.Visibility = Visibility.Hidden
         PathCircleUnit.Visibility = Visibility.Hidden
     End Sub
 
@@ -249,12 +230,14 @@ Class MainWindow
     Private Sub MainWindow_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.Key = Key.LeftCtrl Then
             showDetails = True
+            Angulo.ForceHideCircle = True
             HideCircle()
         End If
     End Sub
 
     Private Sub MainWindow_KeyUp(sender As Object, e As KeyEventArgs) Handles Me.KeyUp
         showDetails = False
+        Angulo.ForceHideCircle = False
         If e.Key = Key.LeftCtrl AndAlso state <> MouseMoveState.None Then
             ShowCircle()
         End If

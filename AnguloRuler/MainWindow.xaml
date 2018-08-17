@@ -25,24 +25,18 @@
             </Path.Stroke>
             <Path.Data>
                 <GeometryGroup FillRule="Nonzero">
-                    <LineGeometry x:Name="Line1" StartPoint="100,100" EndPoint="200,100" />
-                    <LineGeometry x:Name="Line2" StartPoint="{Binding ElementName=Line1,Path=StartPoint}" EndPoint="200,100" />
                     <LineGeometry x:Name="LineUnit" StartPoint="100,150" EndPoint="200,150"/>
                 </GeometryGroup>
             </Path.Data>
         </Path>
-        <Path x:Name="PathCircle" Grid.RowSpan="3" Stroke="{Binding ElementName=PathLine,Path=Stroke}" StrokeThickness="3" Visibility="Hidden">
-            <Path.Fill>
+        <local:Angulometer x:Name="Angulo" Grid.RowSpan="3" StartPoint="100,100" EndPoint1="200,100" EndPoint2="200,100">
+            <local:Angulometer.Stroke>
+                <SolidColorBrush Color="Red" Opacity="0.5"/>
+            </local:Angulometer.Stroke>
+            <local:Angulometer.CircleFill>
                 <SolidColorBrush Color="White" Opacity="0.75"/>
-            </Path.Fill>
-            <Path.Data>
-                <GeometryGroup FillRule="Nonzero">
-                    <EllipseGeometry Center="{Binding ElementName=Line1,Path=StartPoint}" RadiusX="3" RadiusY="3" />
-                    <EllipseGeometry Center="{Binding ElementName=Line1,Path=EndPoint}" RadiusX="3" RadiusY="3" />
-                    <EllipseGeometry Center="{Binding ElementName=Line2,Path=EndPoint}" RadiusX="3" RadiusY="3" />
-                </GeometryGroup>
-            </Path.Data>
-        </Path>
+            </local:Angulometer.CircleFill>
+        </local:Angulometer>
         <Path x:Name="PathCircleUnit" Grid.RowSpan="3" Stroke="{Binding ElementName=PathCircle,Path=Stroke}" StrokeThickness="{Binding ElementName=PathCircle,Path=StrokeThickness}" Visibility="Hidden">
             <Path.Data>
                 <GeometryGroup FillRule="Nonzero">
