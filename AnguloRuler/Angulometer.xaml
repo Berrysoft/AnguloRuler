@@ -12,6 +12,7 @@
                 <GeometryGroup FillRule="Nonzero">
                     <LineGeometry StartPoint="{Binding StartPoint}" EndPoint="{Binding EndPoint1}" />
                     <LineGeometry StartPoint="{Binding StartPoint}" EndPoint="{Binding EndPoint2}" />
+                    <LineGeometry StartPoint="{Binding StartRulerPoint}" EndPoint="{Binding EndRulerPoint}"/>
                 </GeometryGroup>
             </Path.Data>
         </Path>
@@ -21,6 +22,14 @@
                     <EllipseGeometry Center="{Binding StartPoint}" RadiusX="3" RadiusY="3" />
                     <EllipseGeometry Center="{Binding EndPoint1}" RadiusX="3" RadiusY="3" />
                     <EllipseGeometry Center="{Binding EndPoint2}" RadiusX="3" RadiusY="3" />
+                </GeometryGroup>
+            </Path.Data>
+        </Path>
+        <Path Fill="{Binding CircleFill}" Stroke="{Binding Stroke}" StrokeThickness="3" Visibility="{Binding CircleRulerVisibility}">
+            <Path.Data>
+                <GeometryGroup FillRule="Nonzero">
+                    <EllipseGeometry Center="{Binding StartRulerPoint}" RadiusX="3" RadiusY="3" />
+                    <EllipseGeometry Center="{Binding EndRulerPoint}" RadiusX="3" RadiusY="3" />
                 </GeometryGroup>
             </Path.Data>
         </Path>

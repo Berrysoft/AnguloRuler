@@ -17,34 +17,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Image Source="{Binding BackImagePath}" Grid.Row="1" Grid.RowSpan="2" Stretch="Uniform" VerticalAlignment="Top"/>
-        <Slider x:Name="SliderVideo" Grid.Row="1" Value="{Binding Position,Mode=TwoWay,Converter={StaticResource TimeSpanDoubleConverter}}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Visibility="{Binding ElementName=ButtonPause,Path=Visibility}" IsTabStop="False"/>
         <MediaElement x:Name="VideoMedia" Grid.Row="2" Source="{Binding BackVideoPath}" Stretch="Uniform" VerticalAlignment="Top" LoadedBehavior="Manual" ScrubbingEnabled="True"/>
-        <Path x:Name="PathLine" Grid.RowSpan="3" Fill="Red" StrokeThickness="3">
-            <Path.Stroke>
-                <SolidColorBrush Color="Red" Opacity="0.5"/>
-            </Path.Stroke>
-            <Path.Data>
-                <GeometryGroup FillRule="Nonzero">
-                    <LineGeometry x:Name="LineUnit" StartPoint="100,150" EndPoint="200,150"/>
-                </GeometryGroup>
-            </Path.Data>
-        </Path>
-        <local:Angulometer x:Name="Angulo" Grid.RowSpan="3" StartPoint="100,100" EndPoint1="200,100" EndPoint2="200,100">
-            <local:Angulometer.Stroke>
-                <SolidColorBrush Color="Red" Opacity="0.5"/>
-            </local:Angulometer.Stroke>
-            <local:Angulometer.CircleFill>
-                <SolidColorBrush Color="White" Opacity="0.75"/>
-            </local:Angulometer.CircleFill>
-        </local:Angulometer>
-        <Path x:Name="PathCircleUnit" Grid.RowSpan="3" Stroke="{Binding ElementName=PathCircle,Path=Stroke}" StrokeThickness="{Binding ElementName=PathCircle,Path=StrokeThickness}" Visibility="Hidden">
-            <Path.Data>
-                <GeometryGroup FillRule="Nonzero">
-                    <EllipseGeometry Center="{Binding ElementName=LineUnit,Path=StartPoint}" RadiusX="3" RadiusY="3" />
-                    <EllipseGeometry Center="{Binding ElementName=LineUnit,Path=EndPoint}" RadiusX="3" RadiusY="3" />
-                </GeometryGroup>
-            </Path.Data>
-        </Path>
+        <local:Angulometer x:Name="Angulo" Grid.RowSpan="3" StartPoint="100,100" EndPoint1="200,100" EndPoint2="200,100" StartRulerPoint="100,150" EndRulerPoint="200,150" Stroke="Red" CircleFill="White"/>
+        <Slider x:Name="SliderVideo" Grid.Row="1" Value="{Binding Position,Mode=TwoWay,Converter={StaticResource TimeSpanDoubleConverter}}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Visibility="{Binding ElementName=ButtonPause,Path=Visibility}" IsTabStop="False"/>
         <Grid Grid.Row="0" Margin="5,0,5,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
