@@ -145,6 +145,16 @@
         End If
     End Sub
 
+    Public Shared ReadOnly SpecialAngleProperty As DependencyProperty = DependencyProperty.Register(NameOf(SpecialAngle), GetType(Boolean), GetType(Angulometer))
+    Public Property SpecialAngle As Boolean
+        Get
+            Return GetValue(SpecialAngleProperty)
+        End Get
+        Set(value As Boolean)
+            SetValue(SpecialAngleProperty, value)
+        End Set
+    End Property
+
     Public Sub New()
         InitializeComponent()
         Me.DataContext = Me
@@ -169,6 +179,17 @@
             oldMouse = e.GetPosition(Me)
         End If
     End Sub
+
+    Private Function SpecialMoveAngleEndPoint(start As Point, otherEnd As Point, mouse As Point) As Point
+        Const AngleUnit As Double = 15
+        Dim actualV = mouse - start
+        Dim baseV = otherEnd - start
+        Dim oldAng = Vector.AngleBetween(baseV, actualV)
+        Dim newArg = AngleUnit * Math.Round(oldAng / AngleUnit) / 180 * Math.PI
+        Dim arg = Math.Atan2(baseV.Y, baseV.X) + newArg
+        Dim newV As New Vector(actualV.Length * Math.Cos(arg), actualV.Length * Math.Sin(arg))
+        Return start + newV
+    End Function
 
     Protected Overrides Sub OnMouseMove(e As MouseEventArgs)
         MyBase.OnMouseMove(e)
@@ -198,9 +219,17 @@
                     EndPoint1 += delta
                     EndPoint2 += delta
                 Case MouseState.MoveEnd1
-                    EndPoint1 = mouse
+                    If SpecialAngle Then
+                        EndPoint1 = SpecialMoveAngleEndPoint(StartPoint, EndPoint2, mouse)
+                    Else
+                        EndPoint1 = mouse
+                    End If
                 Case MouseState.MoveEnd2
-                    EndPoint2 = mouse
+                    If SpecialAngle Then
+                        EndPoint2 = SpecialMoveAngleEndPoint(StartPoint, EndPoint1, mouse)
+                    Else
+                        EndPoint2 = mouse
+                    End If
                 Case MouseState.MoveRuler
                     Dim delta = mouse - oldMouse
                     StartRulerPoint += delta

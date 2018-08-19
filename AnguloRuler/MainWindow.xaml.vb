@@ -70,13 +70,21 @@ Class MainWindow
     End Sub
 
     Private Sub MainWindow_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        If e.Key = Key.LeftCtrl Then
-            Angulo.ForceHideCircle = True
-        End If
+        Select Case e.Key
+            Case Key.LeftCtrl
+                Angulo.ForceHideCircle = True
+            Case Key.LeftShift
+                Angulo.SpecialAngle = True
+        End Select
     End Sub
 
     Private Sub MainWindow_KeyUp(sender As Object, e As KeyEventArgs) Handles Me.KeyUp
-        Angulo.ForceHideCircle = False
+        Select Case e.Key
+            Case Key.LeftCtrl
+                Angulo.ForceHideCircle = False
+            Case Key.LeftShift
+                Angulo.SpecialAngle = False
+        End Select
     End Sub
 
     Private Sub Model_PlayingChanged(sender As Object, e As Boolean) Handles Model.PlayingChanged
