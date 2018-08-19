@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="Converter.vb" />
     <Compile Include="Helper.vb" />
+    <Compile Include="MainViewModel.vb" />
     <Compile Include="MainWindow.xaml.vb">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

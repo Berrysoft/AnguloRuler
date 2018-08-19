@@ -10,6 +10,9 @@
         <local:TimeSpanDoubleConverter x:Key="TimeSpanDoubleConverter"/>
         <local:ReverseBooleanConverter x:Key="ReverseBooleanConverter"/>
     </Window.Resources>
+    <Window.DataContext>
+        <local:MainViewModel x:Name="Model"/>
+    </Window.DataContext>
     <Grid x:Name="ContentGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -33,9 +36,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" VerticalAlignment="Center" Height="25">θ=</Label>
-            <TextBox Grid.Column="1" Height="25" Text="{Binding Theta}" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Column="1" Height="25" Text="{Binding Angle,ElementName=Angulo,Mode=OneWay}" IsReadOnly="True" IsTabStop="False"/>
             <Label Grid.Column="2" VerticalAlignment="Center" Height="25">l=</Label>
-            <TextBox Grid.Column="3" Height="25" Text="{Binding Length}" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Column="3" Height="25" Text="{Binding Length,ElementName=Angulo,Mode=OneWay}" IsReadOnly="True" IsTabStop="False"/>
             <Button x:Name="ButtonOpenImage" Grid.Column="4" Margin="5" Height="25">打开图片...</Button>
             <Button x:Name="ButtonOpenVideo" Grid.Column="5" Margin="5" Height="25">打开视频...</Button>
             <Button x:Name="ButtonClear" Grid.Column="6" Margin="5" Height="25">清除</Button>
