@@ -22,7 +22,7 @@
         <Image Source="{Binding BackImagePath}" Grid.Row="1" Grid.RowSpan="2" Stretch="Uniform" VerticalAlignment="Top"/>
         <MediaElement x:Name="VideoMedia" Grid.Row="2" Source="{Binding BackVideoPath}" Stretch="Uniform" VerticalAlignment="Top" LoadedBehavior="Manual" ScrubbingEnabled="True"/>
         <local:Angulometer x:Name="Angulo" Grid.RowSpan="3" StartPoint="100,100" EndPoint1="200,100" EndPoint2="200,100" StartRulerPoint="100,150" EndRulerPoint="200,150" Stroke="Red" CircleFill="White"/>
-        <Slider x:Name="SliderVideo" Grid.Row="1" Value="{Binding Position,Mode=TwoWay,Converter={StaticResource TimeSpanDoubleConverter}}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Visibility="{Binding ElementName=ButtonPause,Path=Visibility}" IsTabStop="False"/>
+        <Slider x:Name="SliderVideo" Margin="10,0,0,0" Grid.Row="1" Value="{Binding Position,Mode=TwoWay,Converter={StaticResource TimeSpanDoubleConverter}}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Visibility="{Binding ElementName=ButtonPause,Path=Visibility}" IsTabStop="False"/>
         <Grid Grid.Row="0" Margin="5,0,5,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
