@@ -1,4 +1,4 @@
-﻿<Application x:Class="Application"
+﻿<Application x:Class="App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:AnguloRuler"
@@ -104,7 +104,6 @@
                                                     <Setter Property="OverridesDefaultStyle" Value="true"/>
                                                     <Setter Property="Height" Value="20"/>
                                                     <Setter Property="Width" Value="20"/>
-                                                    <Setter Property="Margin" Value="-10,0,0,0"/>
                                                     <Setter Property="Template">
                                                         <Setter.Value>
                                                             <ControlTemplate TargetType="Thumb">
